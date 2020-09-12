@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update Ingredient {% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-share.css' %}">{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-cogs"></i> Update Ingredient</h2>
+    </section>
+    <div class="container">
+        <section id="form">
+            {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li class="message-success">{{message}}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {{ form.ingredient.errors }}
+                    <label for="id_ingredient">Ingredient</label>
+                    {{ form.ingredient }}
+                </div>
+                {{ form.recipe }}
+                <div id="form-buttons">
+                    <input class="btn" type="submit" value="Update Ingredient">
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    
+    

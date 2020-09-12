@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Page Not Found{% endblock title %}
+{% block content %}
+<!-- nav -->
+{% include 'nav-bar.html' %}
+<!-- nav -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-exclamation-square"></i> Page Not Found</h2>
+    </section>
+    <div class="container">
+        <div id="page-404-500">
+            <div class="icon">
+                <i class="far fa-exclamation-square fa-10x"></i>
+            </div>
+            <div class="text-404-500">
+                <h2>Sorry, that page was not found.</h2>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

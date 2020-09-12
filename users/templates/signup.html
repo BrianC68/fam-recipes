@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign Up{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock extra_css %}
+{% block content %}
+<header>
+    <div id="top-logo">
+        <h1 id="logo"><i class="fal fa-utensils"></i> <span id="fam">Fam</span><span id="recipes">Recipes</span><span id="dot-net">.net</span></h1>
+    </div>
+    <h3 class="logo"><i class="far fa-user-plus"></i> Sign Up</h3>
+    <form id="login-form" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.first_name.errors}}
+            <label for="{{ form.first_name.id_label_for }}">First Name</label>
+            {{ form.first_name }}
+        </div>
+        <div class="form-group">
+            {{ form.last_name.errors}}
+            <label for="{{ form.last_name.id_label_for }}">Last Name</label>
+            {{ form.last_name }}
+        </div>
+        <div class="form-group">
+            {{ form.username.errors}}
+            <label for="{{ form.username.id_label_for }}">UserName</label>
+            {{ form.username }}
+            <div class="help-text">
+                {{ form.username.help_text }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form.email.errors}}
+            <label for="{{ form.email.id_label_for }}">Email</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            {{ form.password1.errors}}
+            <label for="{{ form.password1.id_label_for }}">Password</label>
+            {{ form.password1 }}
+            <div class="help-text">
+                {{ form.password1.help_text }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form.password2.errors}}
+            <label for="{{ form.password2.id_label_for }}">Verify Password</label>
+            {{ form.password2 }}
+        </div>
+        <input class="btn" type="submit" value="Register">
+    </form>
+</header>
+{% endblock content %}

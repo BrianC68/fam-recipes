@@ -1,0 +1,339 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #333333;
+    color: #ffffff;
+}
+
+input[type="submit"] {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #444444;
+    color: #ffffff;
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0px;
+    padding: 0 50px;
+    transition: 1s ease-in;
+    z-index: 1;
+    border-bottom: 1px solid var(--terciary-color);
+}
+
+.navbar .nav-link {
+    padding: 10px 15px;
+    margin: 0 5px;
+}
+
+.navbar .nav-icon {
+    display: none;
+    font-size: 1.5rem;
+}
+
+.navbar .nav-link.active:hover {
+    border-bottom: none;
+}
+
+.navbar .nav-link:hover {
+    border-bottom: var(--terciary-color) 2px solid;
+}
+
+.navbar .nav {
+    display: flex;
+}
+
+.navbar .nav-link i {
+    color: var(--terciary-color);
+}
+
+.navbar .nav-link .nav-icon i {
+    color: var(--secondary-color);
+}
+
+main {
+    margin-top: 70px;
+}
+
+.help-text {
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.help-text ul {
+    list-style: none;
+}
+
+.fa-camera-alt {
+    position: relative;
+    top: 10px;
+    font-size: 15rem;
+    color: var(--primary-color);
+}
+
+.profile-link {
+    color: var(--primary-color);
+}
+
+#page-404-500 {
+    max-width: 1100px;
+    width: 100%;
+    background-color: var(--medium-color);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#page-404-500 .icon {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
+    color: var(--primary-color);
+    font-size: 24px;
+    padding-top: 10px;
+}
+
+#page-404-500 .text-404-500 {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-around;
+    color: var(--secondary-color);
+    padding-right: 40px;
+}
+
+@media (max-width: 920px) {
+
+    .flex-columns .row {
+        flex-direction: column;
+        max-height: 100%;
+        margin-bottom: 0;
+    }
+
+    .flex-columns .row:nth-child(even) {
+        flex-direction: column;
+    }
+
+    .flex-columns .left-column {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+    }
+    
+    .flex-columns .right-column {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+    }
+
+    .flex-columns .right-column .column-2 {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .flex-columns img {
+        border-radius: 0;
+        object-fit: cover;
+    }
+
+    .flex-columns .row:nth-child(even) img {
+        border-radius: 0;
+    }
+
+    .flex-columns .right-column .column-2 .recipe-btns {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 10px;
+    }
+
+    .flex-columns .right-column .column-2 #contributor {
+        position: relative;
+        bottom: 0;
+        margin-bottom: 20px;
+    }
+    
+    .flex-columns .row:nth-child(even) .right-column .column-2 .recipe-btns {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 10px;
+    }
+
+    .flex-columns .row:nth-child(even) .right-column .column-2 #contributor {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 20px;
+    }
+
+    .flex-columns .right-column .column-2 p {
+        margin-bottom: 20px;
+    }
+
+    .flex-columns .right-column .column-2 .view-recipe-btn {
+        margin-bottom: 30px;
+    }
+
+    .flex-columns .right-column .column-2 .profile-link {
+        display: none;
+    }
+}
+
+@media (max-width: 868px) {
+    .navbar {
+        flex-direction: column;
+        height: 100px;
+        padding: 20px;
+    }
+
+    .navbar #logo {
+        margin-bottom: 10px;
+    }
+
+    .navbar .nav-link {
+        padding: 5px 10px;
+    }
+
+    main {
+        margin-top: 100px;
+    }
+
+    a {
+        font-size: .9rem;
+    }
+    
+    /* Profile */
+    #profile {
+        grid-template-areas: 
+        'picture picture'
+        'name username'
+        'email date-of-birth'
+        'birthplace date-joined'
+        'fav-recipes last-login'
+        'edit-profile edit-profile';
+        grid-template-columns: 65% 35%;
+        width: initial;
+    }
+
+    #profile #name {
+        padding-top: 20px;
+        padding-left: 0px;
+    }
+
+    #profile #email {
+        padding-left: 0px;
+    }
+
+    #profile #username {
+        padding-top: 20px;
+        padding-left: 0px;
+    }
+
+    #profile #date-of-birth {
+        padding-left: 0px;
+    }
+   
+    #profile #birthplace {
+        padding-left: 0px;
+    }
+
+    #profile #date-joined {
+    padding-left: 0px;
+    }
+
+    #profile #last-login {
+        padding-left: 0px;
+    }
+
+    #fav-recipes {
+        padding-left: 0px;
+    }
+
+    #fav-recipes a {
+        font-size: 1rem;
+    }
+    /* Profile */
+
+    /* Page 404 and 500 */
+    #page-404-500 {
+        flex-direction: column;
+    }
+
+    #page-404-500 .icon,
+    #page-404-500 .text-404-500 {
+        width: 100%;
+        text-align: center;
+    }
+
+    #page-404-500 .text-404-500 {
+        margin: 40px 0;
+        padding-right: 0px;
+    }
+    /* Page 404 and 500 */
+}
+
+@media (max-width: 430px) {
+    .navbar .nav-link .fa-check-square {
+        display: none;
+        padding: 10px 10px;
+    }
+
+    .navbar .nav-link.active .nav-icon i {
+        color: var(--terciary-color);
+    }
+
+    .navbar .nav-link .nav-text {
+        display: none;
+    }
+
+    .navbar .nav-link .nav-icon {
+        display: inline;
+    }
+
+    .flex-columns .right-column .column-2 {
+        align-items: center;
+        text-align: center;
+    }
+
+    .flex-columns .right-column .column-2 p {
+        display: none;
+    }
+
+    .flex-columns .right-column .column-2 h3 {
+        color: var(--light-color);
+    }
+
+    #profile {
+        grid-template-areas: 
+            'picture picture'
+            'name username'
+            'email date-of-birth'
+            'birthplace date-joined'
+            'last-login last-login'
+            'fav-recipes fav-recipes'
+            'edit-profile edit-profile';
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media(max-height: 568px) {
+    #page-404-500 .text-404-500 {
+        margin: 10px 0;
+    }
+}

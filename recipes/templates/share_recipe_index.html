@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Share a Recipe{% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-share.css' %}">{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-people-arrows"></i> Share Recipe</h2>
+    </section>
+    <div class="container">
+        <section id="content">
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li class="message-success">
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if pk %}
+                <h1>Recipe: {{ recipe.title }}</h1>
+            {% endif %}
+            {% if not recipe.published %}
+            <span class="heading">Three Easy Steps</span class="heading">
+            {% endif %}
+            <ul>
+                {% if pk %}
+                <li><a href="{% url 'recipes:edit-recipe-info' slug=recipe.slug %}" class="btn btn-terciary">Edit Recipe Information</a></li>
+                <li><a href="{% url 'recipes:add-ingredients' pk=pk %}" class="btn">{% if num_ings > 0 %}Add/Edit {% else %}Add {% endif %}Ingredients</a></li>
+                <li><a href="{% url 'recipes:add-directions' pk=pk %}" class="btn btn-terciary">{% if num_dirs > 0 %}Add/Edit {% else %}Add {% endif %}Directions</a></li>
+                <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}" class="btn">Preview Recipe</a></li>
+                    {% if not recipe.published and num_ings > 0 and num_dirs > 0 %}
+                    <li><a href="{% url 'recipes:publish-recipe' pk=pk %}" class="btn btn-secondary">Publish Recipe</a></li>
+                    {% endif %}
+                {% else %}
+                <li><a href="{% url 'recipes:add-recipe-info' %}" class="btn btn-terciary">Add Recipe Information</a></li>
+                <li><a href="#" class="btn disabled">Add Ingredients</a></li>
+                <li><a href="#" class="btn btn-terciary disabled">Add Directions</a></li>
+                {% endif %}
+            </ul>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    

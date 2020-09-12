@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ contributor }} Recipes{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/browse.css' %}">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-folder-tree"></i> Contributor</h2>
+    </section>
+    <div class="container">
+        <div id="contributor-recipes">
+            <div>
+                <h2 class="heading">{{ contributor.get_full_name }}</h2>
+            </div>
+            <div class="recipes-list">
+                <ul>
+                    {% for recipe in recipes %}
+                    <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}">{{ recipe.title }}</a></li>
+                    {% empty %}
+                    <li>Nothing to see here! {{ contributor.first_name }} hasn't shared any recipes yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

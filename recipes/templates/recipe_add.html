@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Recipe Information{% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-share.css' %}">{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-users"></i> Share Recipe</h2>
+    </section>
+    <div class="container">
+        <section id="form">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {{ form.title.errors }}
+                    {{ form.title }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.errors }}
+                    {{ form.description }}
+                    <div class="help-text">
+                        {{ form.description.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.picture.errors }}
+                    {{ form.picture }}
+                    <div class="help-text">
+                        {{ form.picture.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.prep_time.errors }}
+                    {{ form.prep_time }}
+                    <div class="help-text">
+                        {{ form.prep_time.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.cook_time.errors }}
+                    {{ form.cook_time }}
+                    <div class="help-text">
+                        {{ form.cook_time.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.servings.errors }}
+                    {{ form.servings }}
+                </div>
+                <div class="form-group">
+                    {{ form.special_notes.errors }}
+                    {{ form.special_notes }}
+                    <div class="help-text">
+                        {{ form.special_notes.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.categories.errors }}
+                    {{ form.categories }}
+                    <div class="help-text">
+                        {{ form.categories.help_text }}
+                    </div>
+                </div>
+                <div id="form-buttons">
+                    <input class="btn" type="submit" value="Save Recipe">
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    
+    

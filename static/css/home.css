@@ -1,0 +1,142 @@
+/* home page css */
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+header h1 {
+    font-size: 5rem;
+    margin: 1rem;
+    color: var(--secondary-color);
+}
+
+header h3 {
+    margin: 1rem;
+    color: var(--secondary-color);
+}
+
+header p {
+    padding: 10px 0px;
+    margin-bottom: 30px;
+}
+
+header::before {
+    content: '';
+    background: url('https://source.unsplash.com/1600x900/?food,drink')
+        no-repeat center center/cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Login and Sign Up page css */
+
+#login-form label,
+#pw-reset-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#login-form .form-group,
+#pw-reset-form .form-group {
+    margin-top: 20px;
+}
+
+#login-form .form-group input,
+#pw-reset-form .form-group input {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+#login-form .btn,
+#pw-reset-form .btn {
+    margin-top: 30px;
+}
+
+header .fa-utensils {
+    animation-name: rotate;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-iteration-count: 2;
+}
+
+@media(max-width: 768px) {
+    header h1 {
+        font-size: 3rem;
+    }
+
+    header p {
+        margin: 20px 10px;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+}
+
+@media(max-width: 400px) {
+    header::before {
+    background: url('https://source.unsplash.com/360x640/?food,drink')
+        no-repeat center center/cover;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        margin: 1rem;
+    }
+
+    header p {
+        margin: 40px 10px;
+    }
+
+    .help-text {
+        margin: 0 15px;
+    }
+
+    .errorlist {
+        margin: 0 10px
+    }
+}
+
+@media(max-height: 400px) {
+    header::before {
+    background: url('https://source.unsplash.com/640x360/?food,drink')
+        no-repeat center center/cover;
+    }
+
+    header {
+        height: auto;
+    }
+
+    header a {
+            padding-bottom: 10px;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+

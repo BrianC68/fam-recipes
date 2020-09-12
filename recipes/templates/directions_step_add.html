@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Direction {% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-share.css' %}">{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-directions"></i> Directions</h2>
+    </section>
+    <div class="container">
+        <section id="form">
+            {% if steps %}
+            <div id="current-directions">
+                <h4>{{ recipe.title }} Recipe</h4>
+                <span class="heading">Current Directions</span>
+                <ul>
+                    {% for step in steps %}
+                    <li>
+                        <div class="dir-row">
+                            <div class="dir-col">
+                                {{ step.step_number }}. {{ step.directions }}
+                            </div>
+                            <div class="edit-col">
+                                <a class="edit-btn" href="{% url 'recipes:edit-direction' pk=step.pk %}">Edit</a>
+                                <form action="{% url 'recipes:delete-direction' pk=step.pk recipe=recipe.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <a href="#" class="edit-btn" onclick="this.closest('form').submit()">Delete</a>
+                                </form>
+                            </div>
+                        </div></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li class="message-success">{{message}}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {{ form.step_number.errors }}
+                    {{ form.step_number }}
+                </div>
+                <div class="form-group">
+                    {{ form.directions.errors }}
+                    {{ form.directions }}
+                </div>
+                {{ form.recipe }}
+                <div id="form-buttons">
+                    <div>
+                        <input class="btn" type="submit" value="Save Direction">
+                    </div>
+                    <div>
+                        <a href="{% url 'recipes:sharing' pk=recipe.pk %}" class="btn btn-terciary">Done with Directions</a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    
+    

@@ -1,0 +1,26 @@
+{
+    "name": "FamRecipes.Net",
+    "short_name": "FamRecipes.Net",
+    "icons": [
+        {
+            "src": "/static/images/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/static/images/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "scope": "/",
+    "orientation": "any",
+    "theme_color": "#333333",
+    "background_color": "#333333",
+    "display": "standalone",
+    "description": "A website for sharing your favorite recipes with our families.",
+    "dir": "ltr",
+    "lang": "en-US"
+}

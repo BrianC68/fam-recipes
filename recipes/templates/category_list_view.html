@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ category }} Recipes{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/browse.css' %}">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-folder-tree"></i> Category</h2>
+    </section>
+    <div class="container">
+        <div id="category-recipes">
+            <div>
+                <h2 class="heading">{{ category }}</h2>
+            </div>
+            <div class="recipes-list">
+                <ul>
+                    {% for recipe in recipes %}
+                    <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}">{{ recipe.title }}</a>
+                        <span>by {{ recipe.contributor.get_full_name }}</span>
+                    </li>
+                    {% empty %}
+                    <li>Nothing to see here!  {% if user.is_staff %}Why not <a href="{% url 'recipes:share' %}">share</a> a {{ category }} recipe?{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

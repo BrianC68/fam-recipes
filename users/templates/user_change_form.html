@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update Profile Information{% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-share.css' %}">{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-edit"></i> Change Profile</h2>
+    </section>
+    <div class="container">
+        <section id="form">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {{ form.title.errors }}
+                    {{ form.title }}
+                </div>
+                <div class="form-group">
+                    {{ form.first_name.errors }}
+                    <label for="first_name">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    {{ form.last_name.errors }}
+                    <label for="last_name">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    {{ form.username.errors }}
+                    <label for="username">UserName</label>
+                    {{ form.username }}
+                    <div class="help-text">
+                        {{ form.username.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.email.errors }}
+                    <label for="email">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    {{ form.date_of_birth.errors }}
+                    <label for="date_of_birth">Date of Birth</label>
+                    {{ form.date_of_birth }}
+                    <div class="help-text">
+                        {{ form.date_of_birth.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.birthplace.errors }}
+                    <label for="birthplace">Birthplace</label>
+                    {{ form.birthplace }}
+                    <div class="help-text">
+                        {{ form.birthplace.help_text }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.picture.errors }}
+                    <label for="picture">Profile Picture</label>
+                    {{ form.picture }}
+                    <div class="help-text">
+                        {{ form.picture.help_text }}
+                    </div>
+                </div>
+                {{ form.slug }}
+                <div id="form-buttons">
+                    <input class="btn" type="submit" value="Save Profile">
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    
+    

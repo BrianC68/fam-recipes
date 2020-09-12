@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock extra_css %}
+{% block content %}
+<header>
+    <div id="top-logo">
+        <h1 id="logo"><i class="fal fa-utensils"></i> <span id="fam">Fam</span><span id="recipes">Recipes</span><span id="dot-net">.net</span></h1>
+    </div>
+    <h3 class="logo"><i class="far fa-sign-in-alt"></i> Login</h3>
+    <form id="login-form" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.username.errors }}
+            <label for="{{ form.username.id_label_for }}">UserName</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.password.errors }}
+            <label for="{{ form.password.id_label_for }}">Password</label>
+            {{ form.password }}
+        </div>
+        <input class="btn" type="submit" value="Let's Go!">
+    </form>
+    <div class="reset-password-link">
+        <a href="{% url 'password_reset' %}">Forgot Password?</a>
+    </div>
+</header>
+{% endblock content %}
+    
+    

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock extra_css %}
+{% block content %}
+<header>
+    <h1 id="logo"><i class="fal fa-utensils"></i> <span id="fam">Fam</span><span id="recipes">Recipes</span><span id="dot-net">.net</span></h1>
+    <p>A website for sharing your favorite recipes with our families!</p>
+    <a href="{% url 'users:login' %}" class="btn">Login</a>
+</header>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Browse Recipes{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/browse.css' %}">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-folder-tree"></i> Browse Recipes</h2>
+    </section>
+    <div class="container">
+        <div id="browse">
+            <section id="categories">
+                <div>
+                    <h2 class="heading">Category</h2>
+                </div>
+                <div class="category-list">
+                    <ul>
+                        {% for category in categories %}
+                        <li><a href="{% url 'recipes:browse-categories' slug=category.slug %}">{{ category }} ({{category.recipes.count}})</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <section id="contributors">
+                <div>
+                    <h2 class="heading">Contributor</h2>
+                </div>
+                <div class="contributor-list">
+                    <ul>
+                        {% for contributor in contributors %}
+                        <li><a href="{% url 'recipes:browse-contributor' contrib=contributor.username %}">{{ contributor.get_full_name }} ({{contributor.recipes.count}})</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock content %}

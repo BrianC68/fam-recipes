@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ custom_user.get_full_name }}'s Profile{% endblock title %}
+{% block extra_css %} <link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock extra_css %}
+{% block content %}
+<!-- Navbar -->
+{% include 'nav-bar.html' %}
+<!-- Navbar -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-user-cog"></i> {{ custom_user.first_name }}'s Profile</h2>
+    </section>
+    <div class="container">
+        <div id="profile">
+            <section id="picture">
+                {% if custom_user.picture %}
+                <img src="{{custom_user.picture.url}}" alt="Profile Pic">
+                {% else %}
+                <i class="far fa-user fa-10x"></i>
+                {% endif %}
+            </section>
+            <section id="name">
+                <span class="heading">Name</span>
+                <div class="data">{{custom_user.get_full_name}}</div>
+            </section>
+            <section id="email">
+                <span class="heading">Email</span>
+                <div class="data">{{custom_user.email}}</div>
+            </section>
+            <section id="username">
+                <span class="heading">UserName</span>
+                <div class="data">{{custom_user.username}}</div>
+            </section>
+            <section id="date-of-birth">
+                <span class="heading">Date of Birth</span>
+                <div class="data">{{custom_user.date_of_birth}}</div>
+            </section>
+            <section id="birthplace">
+                <span class="heading">Birthplace</span>
+               <div class="data"> {{custom_user.birthplace}}</div>
+            </section>
+            <section id="last-login">
+                <span class="heading">Last Login</span>
+                <div class="data">{{custom_user.last_login|date:'M n, Y'}}</div>
+            </section>
+            <section id="date-joined">
+                <span class="heading">Date Joined</span>
+                <div class="data">{{custom_user.date_joined|date:'M n, Y'}}</div>
+            </section>
+            <section id="fav-recipes">
+                <span class="heading">Favorite Recipes</span><!-- <span id="edit-favs"><i class="far fa-edit"></i></span> -->
+                <div class="data">
+                    <ul>
+                        {% for fav in fav_recipes %}
+                        <li>
+                            <a href="{% url 'recipes:recipe-detail' contrib=fav.recipe.contributor.username slug=fav.recipe.slug %}">{{ fav.recipe.title }}<i class="fas fa-link"></i></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <section id="edit-profile">
+                {% if user == custom_user %}
+                <a href="{% url 'users:profile-edit' slug=custom_user.slug %}" class="btn btn-primary">Edit Profile</a>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+    

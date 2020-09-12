@@ -1,0 +1,46 @@
+<div class="footer">
+    <h1 id="logo"><i class="fal fa-utensils"></i> <span id="fam">Fam</span><span id="recipes">Recipes</span><span id="dot-net">.net</span></h1>
+    <nav>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link{% if request.path == '/recipes/' %} active{% endif %}" href="{% url 'recipes:recipes-index' %}">
+                    <span class="nav-text">Recipes</span>
+                    <span class="nav-icon"><i class="far fa-newspaper"></i></span>
+                    {% if request.path == '/recipes/' %}
+                    <i class="fal fa-check-square"></i>
+                    {% endif %}</a></li>
+            {% if user.is_staff %}
+            <li class="nav-item">
+                <a class="nav-link{% if 'share' in request.path %} active{% endif %}" href="{% url 'recipes:share' %}">
+                    <span class="nav-text">Share</span>
+                    <span class="nav-icon"><i class="far fa-users"></i></span>
+                    {% if 'share' in request.path %}
+                    <i class="fal fa-check-square"></i>
+                    {% endif %}</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link{% if 'browse' in request.path %} active{% endif %}" href="{% url 'recipes:browse' %}">
+                    <span class="nav-text">Browse</span>
+                    <span class="nav-icon"><i class="far fa-folder-tree"></i></span>
+                    {% if 'browse' in request.path %}
+                    <i class="fal fa-check-square"></i>
+                    {% endif %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link{% if 'profile' in request.path %} active{% endif %}" href="#">
+                    <span class="nav-text">Profile</span>
+                    <span class="nav-icon"><i class="far fa-users-cog"></i></span>
+                    {% if 'profile' in request.path %}
+                    <i class="fal fa-check-square"></i>
+                    {% endif %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">
+                    <span class="nav-text">Logout</span>
+                    <span class="nav-icon"><i class="far fa-sign-out-alt"></i></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

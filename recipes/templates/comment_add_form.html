@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Leave Comment {% endblock title %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-share.css' %}">{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-comments"></i> Leave Comment</h2>
+    </section>
+    <div class="container">
+        <section id="form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    <label for="id_comment">Commenting on {{ recipe_name }}</label>
+                    {{ form.comment.errors }}
+                    {{ form.comment }}
+                </div>
+                {{ form.recipe }}
+                {{ form.user }}
+                <div id="form-buttons">
+                    <input class="btn" type="submit" value="Save Comment">
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    
+    

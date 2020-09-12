@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    {% block meta %}{% endblock meta %}
+    <title>{% block title %}{% endblock title %} - FamRecipes.net</title>
+    <script src="https://kit.fontawesome.com/df95faeb60.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    {% block extra_css %}{% endblock extra_css %}
+    <link rel="stylesheet" href="{% static 'css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <!-- Fav Icons  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-config" content="{% static 'browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Fav Icons  -->
+</head>
+<body>
+{% block content %}{% endblock content %}
+</body>
+</html>

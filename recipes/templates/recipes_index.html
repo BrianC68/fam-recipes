@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Recipes{% endblock title %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-burger-soda"></i> Latest Recipes</h2>
+    </section>
+    <div class="container">
+        <section id="recipes" class="flex-columns">
+            {% for recipe in recipes %}
+            <div class="row">
+                <div class="left-column">
+                    <div class="column-1">
+                        {% if recipe.picture %}
+                        <a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}" aria-label="View Recipe"><img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}"></a>
+                        {% else %}
+                        <a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}" aria-label="View Recipe"><i class="fal fa-camera-alt fa-10x"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="column-2">
+                        <h3>{{ recipe.title }}</h3>
+                        {% with desc=recipe.description|truncatechars:400 %}
+                            {{ desc|linebreaks }}
+                            {% endwith %}
+                        <div class="contributor-wrapper">
+                            <span class="contributor"><i class="fal fa-hat-chef"></i> {{ recipe.contributor.username }}</span>
+                            <a class="profile-link" href="{% url 'users:profile' slug=recipe.contributor.slug %}" aria-label="Contributor Profile"><i class="fas fa-link"></i></a>
+                        </div>
+                        <span class="recipe-btns">
+                            <a class="btn btn-secondary view-recipe-btn" href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}">View Recipe</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+</main>
+{% endblock content %}
