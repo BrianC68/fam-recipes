@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ custom_user.get_full_name }}'s Profile{% endblock title %}
-{% block extra_css %} <link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock extra_css %}
+{% block extra_css %} <link rel="stylesheet" href="{% static 'css/profile.css' %}" type="text/css">{% endblock extra_css %}
 {% block content %}
 <!-- Navbar -->
 {% include 'nav-bar.html' %}

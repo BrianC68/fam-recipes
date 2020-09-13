@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{recipe.title}}{% endblock title %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-detail.css' %}">{% endblock extra_css %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/recipe-detail.css' %}" type="text/css">{% endblock extra_css %}
 {% block content %}
 <!-- nav -->
     {% include 'nav-bar.html' %}
