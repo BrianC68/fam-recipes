@@ -55,12 +55,24 @@ a {
 
 #login-form .form-group input,
 #pw-reset-form .form-group input {
-    background-color: var(--secondary-color);
+    background-color: var(--input-color);
     padding: 10px;
     border-radius: 5px;
     border: none;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+}
+
+#login-form .form-group input:-webkit-autofill,
+#login-form .form-group input:-webkit-autofill:hover, 
+#login-form .form-group input:-webkit-autofill:focus, 
+#login-form .form-group input:-webkit-autofill:active,
+#pw-reset-form .form-group input:-webkit-autofill,
+#pw-reset-form .form-group input:-webkit-autofill:hover, 
+#pw-reset-form .form-group input:-webkit-autofill:focus, 
+#pw-reset-form .form-group input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px var(--input-color) inset !important;
+    box-shadow: 0 0 0 30px var(--input-color) inset !important;
 }
 
 #login-form .btn,

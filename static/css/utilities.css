@@ -269,6 +269,18 @@ section#form form .form-group select {
     margin-top: 5px;
 }
 
+section#form form .form-group input:-webkit-autofill,
+section#form form .form-group input:-webkit-autofill:hover, 
+section#form form .form-group input:-webkit-autofill:focus, 
+section#form form .form-group input:-webkit-autofill:active,
+section#form form .form-group textarea:-webkit-autofill,
+section#form form .form-group textarea:-webkit-autofill:hover, 
+section#form form .form-group textarea:-webkit-autofill:focus, 
+section#form form .form-group textarea:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--input-color) inset !important;
+    box-shadow: 0 0 0 30px var(--input-color) inset !important;
+}
+
 section#form form .form-group select {
     height: 100%;
 }
