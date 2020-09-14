@@ -5,7 +5,8 @@
 sent_emails/
 fam_recipes/settings.py
 media/
-test.html
+static/test.html
+static/admin/
 ##############################
 
 # Django stuff:

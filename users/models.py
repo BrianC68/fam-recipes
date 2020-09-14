@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from PIL import Image
+
 import os
 
 def get_upload_path(instance, filename):
@@ -33,3 +35,12 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+    def save(self, *args, **kwargs):
+        super().save()
+        max_size = (600, 600)
+        img = Image.open(self.picture.path)
+        if img.height > 600 or img.width > 600:
+            img.thumbnail(max_size, Image.ANTIALIAS)
+            img.save(self.picture.path, "JPEG")
+        return super().save(*args, **kwargs)

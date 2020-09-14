@@ -3,6 +3,8 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.utils.text import slugify
 
+from PIL import Image
+
 from users.models import CustomUser
 from fam_recipes.settings import MEDIA_ROOT
 
@@ -38,6 +40,15 @@ class Recipe(models.Model):
 
     def get_absolute_url(self):
         return reverse('recipes:sharing', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        super().save()
+        max_size = (920, 920)
+        img = Image.open(self.picture.path)
+        if img.height > 920 or img.width > 920:
+            img.thumbnail(max_size, Image.ANTIALIAS)
+            img.save(self.picture.path, "JPEG")
+        return super().save(*args, **kwargs)
 
 
 class IngredientList(models.Model):
