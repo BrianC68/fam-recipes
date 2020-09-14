@@ -16,9 +16,9 @@
                 <div class="left-column">
                     <div class="column-1">
                         {% if recipe.picture %}
-                        <a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}" aria-label="View Recipe"><img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}"></a>
+                        <a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}" aria-label="View Recipe"><img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}"></a>
                         {% else %}
-                        <a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}" aria-label="View Recipe"><i class="fal fa-camera-alt fa-10x"></i></a>
+                        <a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}" aria-label="View Recipe"><i class="fal fa-camera-alt fa-10x"></i></a>
                         {% endif %}
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <a class="profile-link" href="{% url 'users:profile' slug=recipe.contributor.slug %}" aria-label="Contributor Profile"><i class="fas fa-link"></i></a>
                         </div>
                         <span class="recipe-btns">
-                            <a class="btn btn-secondary view-recipe-btn" href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}">View Recipe</a>
+                            <a class="btn btn-secondary view-recipe-btn" href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}">View Recipe</a>
                         </span>
                     </div>
                 </div>

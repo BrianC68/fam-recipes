@@ -30,7 +30,7 @@
                 <li><a href="{% url 'recipes:edit-recipe-info' slug=recipe.slug %}" class="btn btn-terciary">Edit Recipe Information</a></li>
                 <li><a href="{% url 'recipes:add-ingredients' pk=pk %}" class="btn">{% if num_ings > 0 %}Add/Edit {% else %}Add {% endif %}Ingredients</a></li>
                 <li><a href="{% url 'recipes:add-directions' pk=pk %}" class="btn btn-terciary">{% if num_dirs > 0 %}Add/Edit {% else %}Add {% endif %}Directions</a></li>
-                <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}" class="btn">Preview Recipe</a></li>
+                <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}" class="btn">Preview Recipe</a></li>
                     {% if not recipe.published and num_ings > 0 and num_dirs > 0 %}
                     <li><a href="{% url 'recipes:publish-recipe' pk=pk %}" class="btn btn-secondary">Publish Recipe</a></li>
                     {% endif %}

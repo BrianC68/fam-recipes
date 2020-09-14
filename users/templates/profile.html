@@ -53,7 +53,7 @@
                     <ul>
                         {% for fav in fav_recipes %}
                         <li>
-                            <a href="{% url 'recipes:recipe-detail' contrib=fav.recipe.contributor.username slug=fav.recipe.slug %}">{{ fav.recipe.title }}<i class="fas fa-link"></i></a>
+                            <a href="{% url 'recipes:recipe-detail' contrib=fav.recipe.contributor.slug slug=fav.recipe.slug %}">{{ fav.recipe.title }}<i class="fas fa-link"></i></a>
                         </li>
                         {% endfor %}
                     </ul>

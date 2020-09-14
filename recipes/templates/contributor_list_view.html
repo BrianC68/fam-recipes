@@ -20,7 +20,7 @@
             <div class="recipes-list">
                 <ul>
                     {% for recipe in recipes %}
-                    <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.username slug=recipe.slug %}">{{ recipe.title }}</a></li>
+                    <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}">{{ recipe.title }}</a></li>
                     {% empty %}
                     <li>Nothing to see here! {{ contributor.first_name }} hasn't shared any recipes yet.</li>
                     {% endfor %}

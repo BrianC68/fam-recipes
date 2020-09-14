@@ -207,11 +207,11 @@ def publish_recipe(request, pk):
     messages.add_message(request, messages.SUCCESS, 'Your recipe is now live on the website!')
 
     # Email all users that a new recipe has been added
-    recipients = CustomUser.objects.exclude(username=request.user).values_list('email', flat=True)
+    recipients = CustomUser.objects.filter(is_active=True).exclude(username=request.user.username).values_list('email', flat=True)
     from_email = 'noreply@famrecipes.net'
     subject = 'New Recipe on FamRecipes.net'
-    message = f'{request.user.get_full_name()} has added a {recipe.title} recipe to FamRecipes.net.\n\n'
-    message += f'See it here: https://www.famrecipes.net/recipes/detail/{request.user}/{recipe.slug}/\n\n'
+    message = f'{request.user.get_full_name()} has added a recipe to FamRecipes.net, {recipe.title}.\n\n'
+    message += f'See it here: https://www.famrecipes.net/recipes/detail/{request.user.slug}/{recipe.slug}/\n\n'
     message += 'FamRecipes.net'
     new_recipe_email = (subject, message, from_email, recipients)
 
@@ -293,14 +293,14 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         # Set the success url
-        self.success_url = reverse_lazy('recipes:recipe-detail', kwargs={ 'slug': self.kwargs['slug'], 'contrib': form.instance.recipe.contributor.username })
+        self.success_url = reverse_lazy('recipes:recipe-detail', kwargs={ 'slug': self.kwargs['slug'], 'contrib': form.instance.recipe.contributor.slug })
 
         # Send email to recipe contributor that someone commented on the recipe
         to_email = form.instance.recipe.contributor.email
         from_email = 'noreply@famrecipes.net'
         subject = 'You got a comment!'
         message = f'{form.instance.user.get_full_name()} commented on your {form.instance.recipe.title} recipe.\n\n'
-        message += f'View it here: https://www.famrecipes.net/recipes/detail/{form.instance.recipe.contributor}/{form.instance.recipe.slug}/\n\n'
+        message += f'View it here: https://www.famrecipes.net/recipes/detail/{form.instance.recipe.contributor.slug}/{form.instance.recipe.slug}/\n\n'
         message += 'FamRecipes.net'
 
         try:
@@ -332,14 +332,14 @@ class CommentReplyCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
        
         # Set the success URL
-        self.success_url = reverse_lazy('recipes:recipe-detail', kwargs={ 'slug': form.instance.comment.recipe.slug, 'contrib': form.instance.comment.recipe.contributor.username })
+        self.success_url = reverse_lazy('recipes:recipe-detail', kwargs={ 'slug': form.instance.comment.recipe.slug, 'contrib': form.instance.comment.recipe.contributor.slug })
 
         # Send email to commentor that someone replied to their comment
         to_email = form.instance.comment.user.email
         from_email = 'noreply@famrecipes.net'
         subject = 'You got a reply!'
         message = f'{form.instance.user.get_full_name()} replied to your comment on the {form.instance.comment.recipe.title} recipe.\n\n'
-        message += f'View it here: https://www.famrecipes.net/recipes/detail/{form.instance.comment.recipe.contributor}/{form.instance.comment.recipe.slug}/\n\n'
+        message += f'View it here: https://www.famrecipes.net/recipes/detail/{form.instance.comment.recipe.contributor.slug}/{form.instance.comment.recipe.slug}/\n\n'
         message += 'FamRecipes.net'
 
         try:
@@ -360,7 +360,7 @@ def add_to_favorites(request, slug):
 
     # Return the success URL
     contributor = recipe.contributor
-    return redirect('recipes:recipe-detail', slug=slug, contrib=contributor.username)
+    return redirect('recipes:recipe-detail', slug=slug, contrib=contributor.slug)
 
 
 @login_required
@@ -373,4 +373,4 @@ def remove_from_favorites(request, slug):
 
     # Return the success URL
     contributor = recipe.contributor
-    return redirect('recipes:recipe-detail', slug=slug, contrib=contributor.username)
+    return redirect('recipes:recipe-detail', slug=slug, contrib=contributor.slug)
