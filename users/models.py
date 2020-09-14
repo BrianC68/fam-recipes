@@ -39,8 +39,11 @@ class CustomUser(AbstractUser):
     def save(self, *args, **kwargs):
         super().save()
         max_size = (600, 600)
-        img = Image.open(self.picture.path)
-        if img.height > 600 or img.width > 600:
-            img.thumbnail(max_size, Image.ANTIALIAS)
-            img.save(self.picture.path, "JPEG")
+        try:
+            img = Image.open(self.picture.path)
+            if img.height > 600 or img.width > 600:
+                img.thumbnail(max_size, Image.ANTIALIAS)
+                img.save(self.picture.path, "JPEG")
+        except:
+            pass
         return super().save(*args, **kwargs)

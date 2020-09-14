@@ -44,10 +44,13 @@ class Recipe(models.Model):
     def save(self, *args, **kwargs):
         super().save()
         max_size = (920, 920)
-        img = Image.open(self.picture.path)
-        if img.height > 920 or img.width > 920:
-            img.thumbnail(max_size, Image.ANTIALIAS)
-            img.save(self.picture.path, "JPEG")
+        try:
+            img = Image.open(self.picture.path)
+            if img.height > 920 or img.width > 920:
+                img.thumbnail(max_size, Image.ANTIALIAS)
+                img.save(self.picture.path, "JPEG")
+        except:
+            pass
         return super().save(*args, **kwargs)
 
 
