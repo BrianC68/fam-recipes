@@ -13,7 +13,6 @@
         <section id="recipes" class="flex-columns">
             {% for recipe in recipes %}
             <div class="row{% if not recipe.picture %} add-top-border{% endif %}">
-                
                 <div class="left-column">
                     <div class="column-1">
                         {% if recipe.picture %}
@@ -31,7 +30,9 @@
                             {% endwith %}
                         <div class="contributor-wrapper">
                             <span class="contributor"><i class="fal fa-hat-chef"></i> {{ recipe.contributor.username }}</span>
-                            <a class="profile-link" href="{% url 'users:profile' slug=recipe.contributor.slug %}" aria-label="Contributor Profile"><i class="fas fa-link"></i></a>
+                            <div class="profile-link-div">
+                                <a class="profile-link" href="{% url 'users:profile' slug=recipe.contributor.slug %}" aria-label="Contributor Profile"><i class="fas fa-link"></i></a><span class="profile-link-text">View {{ recipe.contributor.get_full_name }}'s Profile</span>
+                            </div>
                         </div>
                         <span class="recipe-btns">
                             <a class="btn btn-secondary view-recipe-btn" href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}">View Recipe</a>

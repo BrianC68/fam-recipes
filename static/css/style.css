@@ -190,9 +190,9 @@ main {
         margin-bottom: 30px;
     }
 
-    .flex-columns .right-column .column-2 .profile-link {
+    /* .flex-columns .right-column .column-2 .profile-link {
         display: none;
-    }
+    } */
 
     .add-top-border {
         border-top: 1px dashed var(--terciary-color);
@@ -290,6 +290,17 @@ main {
         padding-right: 0px;
     }
     /* Page 404 and 500 */
+        
+    /* Do not display tooltips */
+    .add-to-favs .add-to-favs-text {
+        display: none;
+    }
+
+    .profile-link-div .profile-link-text {
+        display: none;
+    }
+
+    /* Do not display tootips */
 }
 
 @media (max-width: 430px) {
@@ -338,7 +349,7 @@ main {
     .unpub-recipes li,
     .preview-recipe {
     background-color: var(--medium-color);
-}
+    }
 }
 
 @media(max-height: 568px) {

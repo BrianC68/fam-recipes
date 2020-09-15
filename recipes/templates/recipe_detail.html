@@ -8,11 +8,10 @@
 <!-- nav -->
 <main>
     <section id="heading">
-        <h2><i class="far fa-pie"></i> Recipe Details</h2>
+        <h2><i class="far fa-pie"></i> Recipe Detail</h2>
     </section>
     <div class="container">
         <div id="recipe">
-            
             <section id="picture">
                 {% if recipe.picture %}
                 <img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}">
@@ -29,7 +28,14 @@
                     <a href="{% url 'recipes:add-to-favs' slug=recipe.slug %}" aria-label="Add to Favorites"><i class="far fa-heart"></i></a><span class="add-to-favs-text">Save to Favorite Recipes</span>
                     {% endif %}
                 </div>
-                <p>by {{ recipe.contributor.get_full_name }} <a class="profile-link" href="{% url 'users:profile' slug=recipe.contributor.slug %}" aria-label="Contributor Profile"><i class="fas fa-link"></i></a></p>
+                    <p>
+                        <div>
+                            by {{ recipe.contributor.get_full_name }} 
+                            <div class="profile-link-div">
+                            <a class="profile-link" href="{% url 'users:profile' slug=recipe.contributor.slug %}" aria-label="Contributor Profile"><i class="fas fa-link"></i></a><span class="profile-link-text">View {{ recipe.contributor.get_full_name }}'s Profile</span>
+                            </div>
+                        </div>
+                    </p>
                 {% if user == recipe.contributor or user.is_superuser %}
                 <p><a class="edit-btn" href="{% url 'recipes:sharing' pk=recipe.pk %}">Edit Recipe</a></p>
                 {% endif %}

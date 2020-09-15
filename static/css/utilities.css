@@ -314,3 +314,38 @@ section#form form input.btn {
     margin-top: 20px;
 }
 /* Forms */
+
+/* Profile link tooltip */
+.profile-link-div {
+    position: relative;
+    display: inline-block;
+}
+.profile-link-text {
+    visibility: hidden;
+    width: 300px;
+    background-color: var(--primary-color);
+    color: whitesmoke;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 180%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+.profile-link-div:hover .profile-link-text {
+    visibility: visible;
+}
+
+.profile-link-div .profile-link-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 25%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--primary-color) transparent transparent transparent;
+}
+/* Profile link tooltip */

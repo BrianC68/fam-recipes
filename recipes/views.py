@@ -207,7 +207,7 @@ def publish_recipe(request, pk):
     recipe.date_published = date.today() # Set date_published to today's date
     recipe.save() # Save the object
     # Set success message.
-    messages.add_message(request, messages.SUCCESS, 'Your recipe is now live on the website!')
+    messages.add_message(request, messages.SUCCESS, 'Your recipe is now live on the website! Thank you for sharing with the family!')
 
     # Email all users that a new recipe has been added
     recipients = CustomUser.objects.filter(is_active=True).exclude(username=request.user.username).values_list('email', flat=True)

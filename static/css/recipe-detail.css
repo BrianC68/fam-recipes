@@ -300,11 +300,6 @@ a.edit-btn {
     span.icon .fa-cogs {
         margin-right: 4px;
     }
-
-    /* Do not display tooltip */
-    .add-to-favs .add-to-favs-text {
-        display: none;
-    }
 }
 
 @media only screen and (max-width: 320px) {
