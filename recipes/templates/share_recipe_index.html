@@ -20,26 +20,38 @@
             </ul>
             {% endif %}
             {% if pk %}
-                <h1>Recipe: {{ recipe.title }}</h1>
+                <h1>Sharing {{ recipe.title }}</h1>
             {% endif %}
             {% if not recipe.published %}
-            <span class="heading">Three Easy Steps</span class="heading">
+            <span class="heading">Four Easy Steps</span class="heading">
             {% endif %}
             <ul>
                 {% if pk %}
                 <li><a href="{% url 'recipes:edit-recipe-info' slug=recipe.slug %}" class="btn btn-terciary">Edit Recipe Information</a></li>
                 <li><a href="{% url 'recipes:add-ingredients' pk=pk %}" class="btn">{% if num_ings > 0 %}Add/Edit {% else %}Add {% endif %}Ingredients</a></li>
                 <li><a href="{% url 'recipes:add-directions' pk=pk %}" class="btn btn-terciary">{% if num_dirs > 0 %}Add/Edit {% else %}Add {% endif %}Directions</a></li>
-                <li><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}" class="btn">Preview Recipe</a></li>
                     {% if not recipe.published and num_ings > 0 and num_dirs > 0 %}
-                    <li><a href="{% url 'recipes:publish-recipe' pk=pk %}" class="btn btn-secondary">Publish Recipe</a></li>
+                    <li><a href="{% url 'recipes:publish-recipe' pk=pk %}" class="btn btn-secondary" disabled>Publish Recipe</a></li>
+                    {% else %}
+                    <li><a href="#" class="btn btn-secondary disabled" disabled>Recipe is Published</a></li>
+                    {% endif %}
+                    {% if not recipe.published %}
+                    <li class="preview-recipe"><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}">Preview {{ recipe.title}} Recipe</a></li>
                     {% endif %}
                 {% else %}
                 <li><a href="{% url 'recipes:add-recipe-info' %}" class="btn btn-terciary">Add Recipe Information</a></li>
                 <li><a href="#" class="btn disabled">Add Ingredients</a></li>
                 <li><a href="#" class="btn btn-terciary disabled">Add Directions</a></li>
+                <li><a href="#" class="btn btn-secondary disabled" disabled>Publish Recipe</a></li>
                 {% endif %}
             </ul>
+            {% if unpublished_recipes %}
+            <ul class="unpub-recipes">
+                {% for unpub_recipe in unpublished_recipes %}
+                <li><a href="{% url 'recipes:sharing' pk=unpub_recipe.pk %}">Finish {{ unpub_recipe.title }} Recipe</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %} 
         </section>
     </div>
 </main>

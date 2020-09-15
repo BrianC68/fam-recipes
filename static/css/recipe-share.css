@@ -83,5 +83,21 @@ a.edit-btn {
 .dir-row .edit-col {
     display: flex;
     align-items: flex-start;
-    /* justify-content: flex-start; */
+}
+
+.unpub-recipes li,
+.preview-recipe {
+    width: 230px;
+    padding: 5px 0px;
+    margin: 4px 0px 14px 0px;
+    border-radius: 5px;
+}
+
+.unpub-recipes li:last-child {
+    margin-bottom: 0px;
+}
+
+.unpub-recipes li:hover,
+.preview-recipe:hover {
+    background-color: var(--medium-color);
 }

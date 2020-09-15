@@ -10,7 +10,6 @@
     </section>
     <div class="container">
         <section id="form">
-            {% if ing_list %}
             <div id="current-ingredients">
                 <h4>{{ recipe.title }} Recipe</h4>
                 <span class="heading">Current Ingredients</span>
@@ -30,10 +29,11 @@
                             </div>
                                 
                         </div></li>
+                    {% empty %}
+                    <li>No Ingredients Added</li>
                     {% endfor %}
                 </ul>
             </div>
-            {% endif %}
             {% if messages %}
             <ul class="messages">
             {% for message in messages %}

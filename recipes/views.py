@@ -61,6 +61,9 @@ class RecipeShareView(LoginRequiredMixin, TemplateView):
             context['recipe'] = Recipe.objects.get(pk=kwargs['pk'])
             context['num_ings'] = IngredientList.objects.filter(recipe=kwargs['pk']).count()
             context['num_dirs'] = Step.objects.filter(recipe=kwargs['pk']).count()
+            context['unpublished_recipes'] = Recipe.objects.filter(contributor=self.request.user, published=False).exclude(pk=kwargs['pk'])
+        else:
+            context['unpublished_recipes'] = Recipe.objects.filter(contributor=self.request.user, published=False)
         return context
 
 

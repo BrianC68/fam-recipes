@@ -193,6 +193,10 @@ main {
     .flex-columns .right-column .column-2 .profile-link {
         display: none;
     }
+
+    .add-top-border {
+        border-top: 1px dashed var(--terciary-color);
+    }
 }
 
 @media (max-width: 868px) {
@@ -330,6 +334,11 @@ main {
             'edit-profile edit-profile';
         grid-template-columns: 50% 50%;
     }
+
+    .unpub-recipes li,
+    .preview-recipe {
+    background-color: var(--medium-color);
+}
 }
 
 @media(max-height: 568px) {

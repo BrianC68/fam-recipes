@@ -10,7 +10,6 @@
     </section>
     <div class="container">
         <section id="form">
-            {% if steps %}
             <div id="current-directions">
                 <h4>{{ recipe.title }} Recipe</h4>
                 <span class="heading">Current Directions</span>
@@ -29,10 +28,11 @@
                                 </form>
                             </div>
                         </div></li>
+                    {% empty %}
+                    <li>No Directions Added</li>
                     {% endfor %}
                 </ul>
             </div>
-            {% endif %}
             {% if messages %}
             <ul class="messages">
             {% for message in messages %}
