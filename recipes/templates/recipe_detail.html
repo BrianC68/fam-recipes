@@ -37,7 +37,10 @@
                         </div>
                     </p>
                 {% if user == recipe.contributor or user.is_superuser %}
-                <p><a class="edit-btn" href="{% url 'recipes:sharing' pk=recipe.pk %}">Edit Recipe</a></p>
+                <p><a class="edit-btn" href="{% url 'recipes:sharing' pk=recipe.pk %}">Edit Recipe</a>
+                    {% if not recipe.published %}
+                    <a href="{% url 'recipes:publish-recipe' pk=recipe.pk %}" class="pub-btn">Publish Recipe</a></p>
+                    {% endif %}
                 {% endif %}
             </section>
             <section id="description">

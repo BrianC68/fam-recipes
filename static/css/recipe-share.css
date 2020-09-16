@@ -13,11 +13,15 @@
 }
 
 #content a {
-    margin: 10px 0;
+    margin: 10px 0px;
 }
 
 #content .btn {
     width: 230px;
+}
+
+#content .heading {
+    margin-top: 10px;
 }
 
 section#content input[type="submit"] {
@@ -100,4 +104,8 @@ a.edit-btn {
 .unpub-recipes li:hover,
 .preview-recipe:hover {
     background-color: var(--medium-color);
+}
+
+#content .unpub-recipes a {
+    color:var(--light-color);
 }

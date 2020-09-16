@@ -35,9 +35,13 @@
                     {% else %}
                     <li><a href="#" class="btn btn-secondary disabled" disabled>Recipe is Published</a></li>
                     {% endif %}
+                    <li class="preview-recipe"><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}">
                     {% if not recipe.published %}
-                    <li class="preview-recipe"><a href="{% url 'recipes:recipe-detail' contrib=recipe.contributor.slug slug=recipe.slug %}">Preview {{ recipe.title}} Recipe</a></li>
-                    {% endif %}
+                        Preview Recipe
+                        {% else %}
+                        View Recipe
+                        {% endif %}
+                    </a></li>
                 {% else %}
                 <li><a href="{% url 'recipes:add-recipe-info' %}" class="btn btn-terciary">Add Recipe Information</a></li>
                 <li><a href="#" class="btn disabled">Add Ingredients</a></li>
@@ -46,6 +50,7 @@
                 {% endif %}
             </ul>
             {% if unpublished_recipes %}
+            <span class="heading">Unfinished Recipes</span>
             <ul class="unpub-recipes">
                 {% for unpub_recipe in unpublished_recipes %}
                 <li><a href="{% url 'recipes:sharing' pk=unpub_recipe.pk %}">Finish {{ unpub_recipe.title }} Recipe</a></li>

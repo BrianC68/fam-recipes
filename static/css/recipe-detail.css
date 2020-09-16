@@ -183,6 +183,14 @@ a.edit-btn {
     font-size: .9rem;
 }
 
+a.pub-btn {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    border-radius: 2px;
+    padding: 1px 5px;
+    font-size: .9rem;
+}
+
 .add-to-favs {
     position: relative;
     display: inline-block;
@@ -307,7 +315,8 @@ a.edit-btn {
         background-color: var(--dark-color);
     }
 
-    a.edit-btn {
+    a.edit-btn,
+    a.pub-btn {
         background-color: var(--medium-color);
     }
 }
