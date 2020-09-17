@@ -248,7 +248,8 @@ main {
         'name username'
         'birthplace date-of-birth'
         'date-joined last-login'
-        'my-recipes fav-recipes'
+        'my-recipes my-recipes'
+        'fav-recipes fav-recipes'
         'edit-profile edit-profile';
         width: initial;
     }
@@ -368,7 +369,7 @@ main {
         color: var(--light-color);
     }
 
-    #profile {
+    /* #profile {
         grid-template-areas: 
             'picture picture'
             'name username'
@@ -378,7 +379,7 @@ main {
             'fav-recipes fav-recipes'
             'edit-profile edit-profile';
         grid-template-columns: 50% 50%;
-    }
+    } */
 
     .unpub-recipes li,
     .preview-recipe {
