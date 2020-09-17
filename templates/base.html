@@ -25,5 +25,10 @@
 </head>
 <body>
 {% block content %}{% endblock content %}
+{% if user.id == 1 %}
+<div class="admin-icon">
+    <a href="/admin/" target="_blank"><i class="far fa-user-shield"></i></a>
+</div>
+{% endif %}
 </body>
 </html>

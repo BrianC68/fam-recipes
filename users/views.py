@@ -7,7 +7,7 @@ from django.utils.text import slugify
 
 from .models import CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from recipes.models import FavoriteRecipe
+from recipes.models import FavoriteRecipe, Recipe
 
 
 class SignUpView(CreateView):
@@ -45,6 +45,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         # Get the fav_recipes of the user who's profile is being viewed.
         context['fav_recipes'] = FavoriteRecipe.objects.filter(user=kwargs['object'].pk).order_by('recipe__title')
+        context['my_recipes'] = Recipe.objects.filter(contributor=kwargs['object'])
         return context
     
 

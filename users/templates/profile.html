@@ -23,10 +23,6 @@
                 <span class="heading">Name</span>
                 <div class="data">{{custom_user.get_full_name}}</div>
             </section>
-            <section id="email">
-                <span class="heading">Email</span>
-                <div class="data">{{custom_user.email}}</div>
-            </section>
             <section id="username">
                 <span class="heading">UserName</span>
                 <div class="data">{{custom_user.username}}</div>
@@ -55,6 +51,22 @@
                         <li>
                             <a href="{% url 'recipes:recipe-detail' contrib=fav.recipe.contributor.slug slug=fav.recipe.slug %}">{{ fav.recipe.title }}<i class="fas fa-link"></i></a>
                         </li>
+                        {% empty %}
+                        <li>{{ custom_user.username }} hasn't saved any favs yet...</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <section id="my-recipes">
+                <span class="heading">My Recipes</span>
+                <div class="data">
+                    <ul>
+                        {% for my_recipe in my_recipes %}
+                        <li>
+                            <a href="{% url 'recipes:recipe-detail' contrib=my_recipe.contributor.slug slug=my_recipe.slug %}">{{ my_recipe.title }}<i class="fas fa-link"></i></a>
+                        </li>
+                        {% empty %}
+                        <li>{{ custom_user.username }} hasn't shared any recipes yet</li>
                         {% endfor %}
                     </ul>
                 </div>

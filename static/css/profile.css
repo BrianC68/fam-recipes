@@ -7,10 +7,10 @@
     padding: 10px;
     display: grid;
     grid-template-areas: 
-        'picture name username email'
-        'picture date-of-birth birthplace date-joined'
-        'picture last-login fav-recipes fav-recipes'
-        'picture edit-profile edit-profile edit-profile';
+        'picture name username date-joined'
+        'picture date-of-birth birthplace last-login'
+        'picture edit-profile edit-profile edit-profile'
+        'my-recipes fav-recipes fav-recipes fav-recipes';
 }
 
 #picture {
@@ -21,11 +21,6 @@
 
 #name {
     grid-area: name;
-    padding-left: 20px;
-}
-
-#email {
-    grid-area: email;
     padding-left: 20px;
 }
 
@@ -56,6 +51,13 @@
 
 #fav-recipes {
     grid-area: fav-recipes;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+#my-recipes {
+    grid-area: my-recipes;
+    padding-top: 20px;
     padding-left: 20px;
 }
 
@@ -80,7 +82,7 @@
 }
 
 #picture i {
-    margin: 50px;
+    margin: 50px 150px;
     color: var(--primary-color);
 }
 
@@ -88,25 +90,28 @@
     word-wrap: break-word;
 }
 
-#fav-recipes i {
+#fav-recipes i,
+#my-recipes i {
     margin-left: 5px;
     color: var(--primary-color);
 }
 
-#fav-recipes a {
+#fav-recipes a,
+#my-recipes a {
     color: white;
 }
 
-#fav-recipes li {
+#fav-recipes li,
+#my-recipes li {
     padding-bottom: 8px;
 }
 
-#fav-recipes li:last-child {
+#fav-recipes li:last-child,
+#my-recipes li:last-child {
     padding-bottom: 0px;
 }
 
-#fav-recipes span#edit-favs i {
-    /* padding-top: 5px; */
+/* #fav-recipes span#edit-favs i {
     margin-left: 5px;
     font-size: 1.2rem;
-}
+} */
