@@ -82,7 +82,6 @@
 }
 
 #picture i {
-    margin: 50px 150px;
     color: var(--primary-color);
 }
 
@@ -110,8 +109,3 @@
 #my-recipes li:last-child {
     padding-bottom: 0px;
 }
-
-/* #fav-recipes span#edit-favs i {
-    margin-left: 5px;
-    font-size: 1.2rem;
-} */
