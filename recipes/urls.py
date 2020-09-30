@@ -26,5 +26,11 @@ urlpatterns = [
     path('comment/reply/<pk>', views.CommentReplyCreateView.as_view(), name='add-comment-reply'),
     path('favorites/add/<slug>/', views.add_to_favorites, name='add-to-favs'),
     path('favorites/remove/<slug>/', views.remove_from_favorites, name='remove-from-favs'),
+    path('try-list/add/<slug>/', views.add_to_try_list, name='add-to-try-list'),
+    path('try-list/remove/<slug>/', views.remove_from_try_list, name='remove-from-try-list'),
+    path('my-try-list/', views.MyTryListView.as_view(), name='my-try-list'),
+    path('my-favorites/', views.MyFavoritesListView.as_view(), name='my-favorites'),
+    path('my-recipes/', views.MyRecipesListView.as_view(), name='my-recipes'),
+    path('try-list/move/<slug>/', views.move_from_try_list_to_meal_menu, name='move-to-meal-menu'),
 
 ]

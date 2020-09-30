@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update Shopping List Item {% endblock title %}
+{% block extra_css %}{% endblock extra_css %}
+{% block content %}
+{% include 'nav-bar.html' %}
+<main>
+    <section id="heading">
+        <h2><i class="far fa-plus-square"></i> Add Item</h2>
+    </section>
+    <div class="container">
+        <section id="form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {{ form.list_item.errors }}
+                    <label for="id_ingredient">Shopping List Item</label>
+                    {{ form.list_item }}
+                </div>
+                <div class="form-group">
+                    {{ form.department.errors }}
+                    <label for="id_department">Store Department</label>
+                    {{ form.department }}
+                    <div class="help-text">
+                        {{ form.department.help_text }}
+                    </div>
+                </div>
+                <div id="form-buttons">
+                    <input class="btn" type="submit" value="Add Item">
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}
+    
+    

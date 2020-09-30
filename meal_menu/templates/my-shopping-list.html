@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Shopping List{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/side-nav-pages.css' %}" type="text/css">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-list-ol"></i> My Shopping List</h2>
+    </section>
+    <div class="container">
+        <section id="content">
+            <div id="list">
+                {% if messages %}
+                <div>
+                    <ul id="messages">
+                        {% for message in messages %}
+                        <li class="message-success" id="message{{forloop.counter}}">
+                            <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                </div>
+                {% endif %}
+                <div class="add-item">
+                    <a href="{% url 'meal_menu:shopping-list-item-add' %}" class="btn btn-light">Add Item</a>
+                </div>
+                {% if not shopping_list %}
+                    <div class="list-empty">
+                        Your list is empty! Add recipes to your meal menu and the ingredients will be added to your shopping list. Click the Add Item button to add addtional items to your shopping list.
+                    </div>
+                {% else %}
+                {% for dept in departments %}
+                {% if dept.department__id == None %}
+                <span class="heading">Misc Items</span>
+                {% else %}
+                <span class="heading">{{ dept.department__store_department }}</span>
+                {% endif %}
+                <ul>
+                    {% for item in shopping_list %}
+                    {% if item.department.id == dept.department__id %}
+                    <li class="action">
+                        <div class="list-row">
+                            <div class="left-col">
+                                {{ item.list_item }}
+                            </div>
+                            <div class="middle-col">
+                                {{ item.recipe.title }}
+                            </div>
+                            <div class="right-col">
+                                <a href="{% url 'meal_menu:shopping-list-item-edit' pk=item.pk %}" class="action-btn full-text">Edit</a>
+                                <a href="{% url 'meal_menu:shopping-list-item-edit' pk=item.pk %}" class="action-btn short-text"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'meal_menu:my-shopping-list-remove' item_pk=item.pk %}" class="action-btn full-text">Remove</a>
+                                <a href="{% url 'meal_menu:my-shopping-list-remove' item_pk=item.pk %}" class="action-btn short-text"><i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock content %}

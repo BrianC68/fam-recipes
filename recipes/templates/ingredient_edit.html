@@ -10,13 +10,6 @@
     </section>
     <div class="container">
         <section id="form">
-            {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li class="message-success">{{message}}</li>
-            {% endfor %}
-            </ul>
-            {% endif %}
             <form method="POST">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
@@ -24,6 +17,14 @@
                     {{ form.ingredient.errors }}
                     <label for="id_ingredient">Ingredient</label>
                     {{ form.ingredient }}
+                </div>
+                <div class="form-group">
+                    {{ form.category.errors }}
+                    <label for="id_category">Category</label>
+                    {{ form.category }}
+                    <div class="help-text">
+                        {{ form.category.help_text }}
+                    </div>
                 </div>
                 {{ form.recipe }}
                 <div id="form-buttons">

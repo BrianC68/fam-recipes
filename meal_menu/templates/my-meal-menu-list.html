@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Meal Menu Recipes{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/side-nav-pages.css' %}" type="text/css">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-list-alt"></i> My Meal Menu</h2>
+    </section>
+    <div class="container">
+        <section id="content">
+            <div id="list">
+                {% if messages %}
+                <div>
+                    <ul id="messages">
+                        {% for message in messages %}
+                        <li class="message-success" id="message{{forloop.counter}}">
+                            <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if not meal_menu %}
+                    <div class="list-empty">
+                        Your list is empty! Find recipes you would like to try and add them to your Meal List. Just look for the Meal Menu icon <i class="fal fa-list-alt"></i> on the recipe detail page.
+                    </div>
+                {% else %}
+                <ul>
+                    {% for meal in meal_menu %}
+                    <li class="action">
+                        <div class="list-row">
+                            <div class="left-col">
+                                {{ meal.recipe.title }}
+                            </div>
+                            <div class="right-col">
+                                <a href="{% url 'meal_menu:remove-from-meal-menu' slug=meal.recipe.slug %}" class="action-btn full-text">Remove</a>
+                                <a href="{% url 'meal_menu:remove-from-meal-menu' slug=meal.recipe.slug %}" class="action-btn short-text"><i class="far fa-trash-alt"></i></a>
+                                <a href="{% url 'recipes:recipe-detail' slug=meal.recipe.slug contrib=user.slug %}" class="action-btn">View</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock content %}

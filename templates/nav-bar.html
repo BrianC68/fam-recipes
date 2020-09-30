@@ -2,13 +2,20 @@
     <h1 id="logo"><i class="fal fa-utensils"></i> <span id="fam">Fam</span><span id="recipes">Recipes</span><span id="dot-net">.net</span></h1>
     <nav>
         <ul class="nav">
+            {% if user.id == 1 %}
+            <li class="nav-item">
+                <a class="nav-link-admin" href="/admin/" target="_blank" aria-label="Admin">
+                    <span class="nav-icon-admin"><i class="far fa-user-shield"></i></span></a>
+            </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link{% if request.path == '/recipes/' or 'detail' in request.path %} active{% endif %}" href="{% url 'recipes:recipes-index' %}" aria-label="Recipes">
                     <span class="nav-text">Recipes</span>
                     <span class="nav-icon"><i class="far fa-list-alt"></i></span>
                     {% if request.path == '/recipes/' or 'detail' in request.path %}
                     <i class="fal fa-check-square"></i>
-                    {% endif %}</a></li>
+                    {% endif %}</a>
+            </li>
             {% if user.is_staff %}
             <li class="nav-item">
                 <a class="nav-link{% if 'share' in request.path %} active{% endif %}" href="{% url 'recipes:share' %}" aria-label="Share">
@@ -38,8 +45,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}" aria-label="Logout">
                     <span class="nav-text">Logout</span>
-                    <span class="nav-icon"><i class="far fa-sign-out-alt"></i></span>
-                </a>
+                    <span class="nav-icon"><i class="far fa-sign-out-alt"></i></span></a>
             </li>
         </ul>
     </nav>

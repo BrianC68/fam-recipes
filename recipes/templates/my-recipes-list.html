@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Recipes{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/side-nav-pages.css' %}" type="text/css">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-list-alt"></i> My Recipes</h2>
+    </section>
+    <div class="container">
+        <section id="content">
+            <div id="list">
+                {% if messages %}
+                <div>
+                    <ul id="messages">
+                        {% for message in messages %}
+                        <li class="message-success" id="message{{forloop.counter}}">
+                            <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if not my_recipes %}
+                    <div class="list-empty">
+                        Your list is empty! Why not share one of your recipes?
+                    </div>
+                {% else %}
+                <ul>
+                    {% for recipe in my_recipes %}
+                    <li class="action">
+                        <div class="list-row">
+                            <div class="left-col">
+                                {{ recipe.title }} {% if not recipe.published %}<span class="warning">Not Published <i class="far fa-exclamation-square"></i></span>{% endif %}
+                            </div>
+                            <div class="right-col">
+                                <a href="{% url 'recipes:sharing' pk=recipe.pk %}" class="action-btn full-text">Edit</a>
+                                <a href="{% url 'recipes:sharing' pk=recipe.pk %}" class="action-btn short-text"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'meal_menu:add-to-meal-menu' slug=recipe.slug next='my-recipes' %}" class="action-btn full-text">Add to Menu</a>
+                                <a href="{% url 'meal_menu:add-to-meal-menu' slug=recipe.slug next='my-recipes' %}" class="action-btn short-text"><i class="far fa-plus"></i> Menu</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock content %}

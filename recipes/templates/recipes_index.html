@@ -12,7 +12,7 @@
     <div class="container">
         <section id="recipes" class="flex-columns">
             {% for recipe in recipes %}
-            <div class="row{% if not recipe.picture %} add-top-border{% endif %}">
+            <div class="row{% if not recipe.picture and not forloop.first %} add-top-border{% endif %}">
                 <div class="left-column">
                     <div class="column-1">
                         {% if recipe.picture %}

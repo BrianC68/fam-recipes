@@ -25,7 +25,7 @@ class CreateIngredientListForm(forms.ModelForm):
 
     class Meta:
         model = IngredientList
-        fields = ['recipe', 'ingredient']
+        fields = ['recipe', 'ingredient', 'category']
         widgets = {
             'recipe': forms.HiddenInput()
         }
@@ -52,7 +52,10 @@ class UpdateRecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        exclude = ['slug', 'contributor', 'published', 'date_published']
+        exclude = ['contributor', 'published', 'date_published']
+        widgets = {
+            'slug': forms.HiddenInput()
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -69,7 +72,7 @@ class UpdateIngredientForm(forms.ModelForm):
 
     class Meta:
         model = IngredientList
-        fields = ['recipe', 'ingredient']
+        fields = ['recipe', 'ingredient', 'category']
         widgets = {
             'recipe': forms.HiddenInput()
         }

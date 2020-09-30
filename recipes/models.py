@@ -60,6 +60,13 @@ class IngredientList(models.Model):
     # Model fields
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients')
     ingredient = models.CharField(max_length=255)
+    category = models.ForeignKey(
+        'meal_menu.StoreDepartment', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=False, 
+        help_text='Category is used to group shopping list items.'
+        )
 
     class Meta:
         unique_together = ['recipe', 'ingredient']
@@ -67,7 +74,8 @@ class IngredientList(models.Model):
         verbose_name_plural = 'Indredient Lists'
 
     def __str__(self):
-        return f'Ingredient for {self.recipe}'
+        # return f'Ingredient for {self.recipe}'
+        return self.ingredient
 
     def get_absolute_url(self):
         return reverse('recipes:add-ingredients', kwargs={'pk': self.recipe.id})
@@ -146,3 +154,14 @@ class FavoriteRecipe(models.Model):
 
     class Meta:
         verbose_name_plural = 'Favorite Recipes'
+
+
+class TryListRecipe(models.Model):
+    '''Model that stores recipes the user wants to try.'''
+
+    # Model Fields
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='try_recipes')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Try List Recipes'

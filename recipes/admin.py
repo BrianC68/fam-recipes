@@ -13,7 +13,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 class IngredientListAdmin(admin.ModelAdmin):
 
-    list_display = ['recipe', 'ingredient']
+    list_display = ['recipe', 'ingredient', 'category']
     search_fields = ['recipe']
 
 
@@ -43,6 +43,12 @@ class FavoriteRecipeAdmin(admin.ModelAdmin):
     list_filter = ['user']
 
 
+class TryListRecipeAdmin(admin.ModelAdmin):
+
+    list_display = ['user', 'recipe']
+    list_filter = ['user']
+
+
 admin.site.register(models.Recipe, RecipeAdmin)
 admin.site.register(models.IngredientList, IngredientListAdmin)
 admin.site.register(models.Step, StepAdmin)
@@ -50,3 +56,4 @@ admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Comment, CommentAdmin)
 admin.site.register(models.CommentReply, CommentReplyAdmin)
 admin.site.register(models.FavoriteRecipe, FavoriteRecipeAdmin)
+admin.site.register(models.TryListRecipe, TryListRecipeAdmin)

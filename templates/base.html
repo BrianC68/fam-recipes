@@ -24,11 +24,27 @@
     <!-- Fav Icons  -->
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <div id="sideNavOpen" class="side-nav-tab" onclick="openMenu()">
+        <div class="side-nav-tab-text"><i class="fas fa-chevron-double-right"></i></div>
+    </div>
+    <div id="sideNavClose" class="side-nav-tab-close" onclick="closeMenu()">
+        <div class="side-nav-tab-close-text"><i class="fas fa-chevron-double-left"></i></div>
+    </div>
+    <div class="side-nav" id="sideNav">
+        <ul>
+            <li><a href="{% url 'recipes:my-try-list' %}">My Try List</a></li>
+            <li><a href="{% url 'meal_menu:my-meal-menu' %}">My Meal Menu</a></li>
+            <li><a href="{% url 'meal_menu:my-shopping-list' %}">My Shopping List</a></li>
+            <li><a href="{% url 'recipes:my-recipes' %}">My Recipes</a></li>
+            <li><a href="{% url 'recipes:my-favorites' %}">My Favorites</a></li>
+        </ul>
+    </div>
+    {% endif %}
 {% block content %}{% endblock content %}
-{% if user.id == 1 %}
-<div class="admin-icon">
-    <a href="/admin/" target="_blank"><i class="far fa-user-shield"></i></a>
-</div>
+{% if user.is_authenticated %}
+<script src="{% static 'js/side-nav.js' %}"></script>
 {% endif %}
+<script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

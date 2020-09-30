@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Favorite Recipes{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/side-nav-pages.css' %}" type="text/css">
+{% endblock extra_css %}
+{% block content %}
+<!-- <header> -->
+    {% include 'nav-bar.html' %}
+<!-- </header> -->
+<main>
+    <section id="heading">
+        <h2><i class="far fa-heart"></i> My Favorites</h2>
+    </section>
+    <div class="container">
+        <section id="content">
+            <div id="list">
+                {% if messages %}
+                <div>
+                    <ul id="messages">
+                        {% for message in messages %}
+                        <li class="message-success" id="message{{forloop.counter}}">
+                            <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if not fav_recipes %}
+                    <div class="list-empty">
+                        Your list is empty! When you find recipes you really like, add them to your Favorites.  Just look for the Favorites <i class="fal fa-heart"></i> icon on the recipe detail page.
+                    </div>
+                {% else %}
+                <ul>
+                    {% for fav in fav_recipes %}
+                    <li class="action">
+                        <div class="list-row">
+                            <div class="left-col">
+                                {{ fav.recipe.title }}
+                            </div>
+                            <div class="right-col">
+                                <a href="{% url 'recipes:remove-from-favs' fav.recipe.slug %}" class="action-btn full-text">Remove</a>
+                                <a href="{% url 'recipes:remove-from-favs' fav.recipe.slug %}" class="action-btn short-text"><i class="far fa-trash-alt"></i></a>
+                                <a href="{% url 'meal_menu:add-to-meal-menu' slug=fav.recipe.slug next='my-favorites' %}" class="action-btn full-text">Add to Menu</a>
+                                <a href="{% url 'meal_menu:add-to-meal-menu' slug=fav.recipe.slug next='my-favorites' %}" class="action-btn short-text"><i class="far fa-plus"></i> Menu</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock content %}

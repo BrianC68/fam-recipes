@@ -27,17 +27,19 @@
                                     <a href="#" class="edit-btn" onclick="this.closest('form').submit()">Delete</a>
                                 </form>
                             </div>
-                                
-                        </div></li>
+                        </div>
+                    </li>
                     {% empty %}
                     <li>No Ingredients Added</li>
                     {% endfor %}
                 </ul>
             </div>
             {% if messages %}
-            <ul class="messages">
+            <ul id="messages">
             {% for message in messages %}
-                <li class="message-success">{{message}}</li>
+                <li class="message-success" id="message{{forloop.counter}}">
+                    <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                </li>
             {% endfor %}
             </ul>
             {% endif %}
@@ -48,6 +50,15 @@
                     {{ form.ingredient.errors }}
                     <label for="id_ingredient">Ingredient</label>
                     {{ form.ingredient }}
+                </div>
+                {{ form.recipe }}
+                <div class="form-group">
+                    {{ form.category.errors }}
+                    <label for="id_category">Category</label>
+                    {{ form.category }}
+                    <div class="help-text">
+                    {{ form.category.help_text }}
+                    </div>
                 </div>
                 {{ form.recipe }}
                 <div id="form-buttons">

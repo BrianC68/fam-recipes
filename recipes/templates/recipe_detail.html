@@ -20,13 +20,43 @@
                 {% endif %}
             </section>
             <section id="title">
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li class="message-success" id="message{{forloop.counter}}">
+                        <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <h3>{{ recipe.title }}</h3>
-                <div class="add-to-favs">
-                    {% if is_favorite %}
-                    <a href="{% url 'recipes:remove-from-favs' slug=recipe.slug %}" aria-label="Remove from Favorites"><i class="fas fa-heart"></i></a><span class="add-to-favs-text">Remove from Favorite Recipes</span>
-                    {% else %}
-                    <a href="{% url 'recipes:add-to-favs' slug=recipe.slug %}" aria-label="Add to Favorites"><i class="far fa-heart"></i></a><span class="add-to-favs-text">Save to Favorite Recipes</span>
-                    {% endif %}
+                <div class="recipe-actions">
+                    <div class="add-to-favs">
+                        {% if is_favorite %}
+                        <a href="{% url 'recipes:my-favorites' %}" aria-label="Go to My Favorites"><i class="fas fa-heart"></i></a>
+                        <span class="add-to-favs-text">Go to My Favorites</span> <div class="actions-text">Fav List</div>
+                        {% else %}
+                        <a href="{% url 'recipes:add-to-favs' slug=recipe.slug %}" aria-label="Add to Favorites"><i class="fal fa-heart"></i></a><span class="add-to-favs-text">Save to Favorites</span> <div class="actions-text">&#43; Fav</div>
+                        {% endif %}
+                    </div>
+                    <div class="add-to-try-list">
+                        {% if on_try_list %}
+                        <a href="{% url 'recipes:my-try-list' %}" aria-label="Go to My Try List"><i class="fas fa-check-square"></i></a><span class="add-to-try-list-text">Go to My Try List</span>
+                        <div class="actions-text">Try List</div>
+                        {% else %}
+                        <a href="{% url 'recipes:add-to-try-list' slug=recipe.slug %}" aria-label="Add to Try List"><i class="fal fa-check-square"></i></a><span class="add-to-try-list-text">Save to Try List</span>
+                        <div class="actions-text">&#43; Try List</div>
+                        {% endif %}
+                    </div>
+                    <div class="add-to-menu">
+                        {% if on_meal_menu %}
+                        <a href="{% url 'meal_menu:my-meal-menu' %}" aria-label="Go to My Menu"><i class="fas fa-list-alt"></i></a><span class="add-to-menu-text">Go to My Meal Menu</span>
+                        <div class="actions-text">Menu</div>
+                        {% else %}
+                        <a href="{% url 'meal_menu:add-to-meal-menu' slug=recipe.slug next='recipe-detail' %}" aria-label="Add to Menu"><i class="fal fa-list-alt"></i></a><span class="add-to-menu-text">Save to Menu</span>
+                        <div class="actions-text">&#43; Menu</div>
+                        {% endif %}
+                    </div>
                 </div>
                     <p>
                         <div>

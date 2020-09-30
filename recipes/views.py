@@ -9,15 +9,17 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.core.mail import send_mass_mail, send_mail
 from django.db.models import ObjectDoesNotExist
+from django.db import IntegrityError
 
 from datetime import date
 
 from .models import Recipe, IngredientList, Step, Category, Comment, CommentReply, \
-    FavoriteRecipe
+    FavoriteRecipe, TryListRecipe
 from .forms import CreateRecipeForm, CreateIngredientListForm, CreateStepForm, \
     UpdateRecipeForm, UpdateIngredientForm, UpdateStepForm, CreateCommentForm, \
     CreateCommentReplyForm
 from users.models import CustomUser
+from meal_menu.models import MealMenuRecipe, ShoppingList
 
 
 class RecipeListView(LoginRequiredMixin, ListView):
@@ -46,7 +48,21 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
             FavoriteRecipe.objects.get(recipe__slug=self.kwargs['slug'], user=self.request.user)
             context['is_favorite'] = True
         except ObjectDoesNotExist:
-            pass
+            context['is_favorite'] = False
+
+        try:
+            TryListRecipe.objects.get(recipe__slug=self.kwargs['slug'], user=self.request.user)
+            context['on_try_list'] = True
+        except ObjectDoesNotExist:
+            context['on_try_list'] = False
+
+
+        try:
+            MealMenuRecipe.objects.get(recipe__slug=self.kwargs['slug'], user=self.request.user)
+            context['on_meal_menu'] = True
+        except ObjectDoesNotExist:
+            context['on_meal_menu'] = False
+
         return context
 
 
@@ -134,6 +150,14 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UpdateRecipeForm
     template_name = 'recipe_edit.html'
 
+    def form_valid(self, form):
+        # Slugify the recipe title
+        form.instance.slug = slugify(form.instance.title)
+
+        # Add Message
+        messages.add_message(self.request, messages.INFO, f'{form.instance.title} has been updated!')
+        return super().form_valid(form)
+
 
 class IngredientUpdateView(LoginRequiredMixin, UpdateView):
     '''Page where user can update an ingredient.'''
@@ -168,9 +192,13 @@ class StepUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def form_valid(self, form):
+
         # Set the success URL based on what recipe is being shared
         self.success_url = reverse_lazy('recipes:add-directions', kwargs={ 'pk': form.instance.recipe.pk })
-        messages.add_message(self.request, messages.SUCCESS, 'Your direction has been updated!')
+
+        # Add Message
+        messages.add_message(self.request, messages.SUCCESS, f'Direction number {form.instance.step_number} has been updated!')
+        
         return super().form_valid(form)
 
 
@@ -192,7 +220,13 @@ class StepDeleteView(LoginRequiredMixin, DeleteView):
     model = Step
 
     def delete(self, *args, **kwargs):
-        messages.add_message(self.request, messages.INFO, 'Your direction has been removed!')
+
+        # Get the direction object being deleted
+        direction = Step.objects.get(pk=kwargs['pk'])
+        
+        # Add Message
+        messages.add_message(self.request, messages.INFO, f'Direction number {direction.step_number} has been removed!')
+        # Set the success url
         self.success_url = reverse_lazy('recipes:add-directions', kwargs={ 'pk': kwargs['recipe'] })
 
         return super().delete(*args, **kwargs)
@@ -355,11 +389,14 @@ class CommentReplyCreateView(LoginRequiredMixin, CreateView):
 
 @login_required
 def add_to_favorites(request, slug):
-    '''View that saves a recipe to users favorite recipes list. This view is only linked from the recipe detail page.'''
+    '''View that saves a recipe to users favorite recipes list.'''
 
     recipe = Recipe.objects.get(slug=slug)
     favorite = FavoriteRecipe(user=request.user, recipe=recipe)
     favorite.save()
+
+    # Add message
+    messages.add_message(request, messages.INFO, 'Added to your Favorites!')
 
     # Return the success URL
     contributor = recipe.contributor
@@ -368,12 +405,117 @@ def add_to_favorites(request, slug):
 
 @login_required
 def remove_from_favorites(request, slug):
-    '''View that removes a recipe from users favorite recipes list. This view is only linked from the recipe detail page.'''
+    '''View that removes a recipe from users favorite recipes list.'''
 
     recipe = Recipe.objects.get(slug=slug)
     favorite = FavoriteRecipe.objects.get(recipe=recipe, user=request.user)
     favorite.delete()
 
+    # Add message
+    messages.add_message(request, messages.INFO, f'{recipe.title} was removed from your Favorites!')
+    
+    # Return the success URL
+    contributor = recipe.contributor
+    return redirect('recipes:my-favorites')
+
+
+@login_required
+def add_to_try_list(request, slug):
+    '''View that saves a recipe to users recipe try list.'''
+
+    recipe = Recipe.objects.get(slug=slug)
+    try_list_recipe = TryListRecipe(user=request.user, recipe=recipe)
+    try_list_recipe.save()
+
+    # Add message
+    messages.add_message(request, messages.INFO, 'Added to your Try List!')
+
     # Return the success URL
     contributor = recipe.contributor
     return redirect('recipes:recipe-detail', slug=slug, contrib=contributor.slug)
+
+
+@login_required
+def remove_from_try_list(request, slug):
+    '''View that removes a recipe from users recipe try list.'''
+
+    recipe = Recipe.objects.get(slug=slug)
+    try_list_recipe = TryListRecipe.objects.get(recipe=recipe, user=request.user)
+    try_list_recipe.delete()
+
+    # Return the success URL
+    contributor = recipe.contributor
+    return redirect('recipes:my-try-list')
+
+
+@login_required
+def move_from_try_list_to_meal_menu(request, slug):
+    '''View that moves a recipe from the Try List to the Meal Menu and adds ingredients to the Shopping List'''
+
+    recipe = Recipe.objects.get(slug=slug)
+    # Add the recipe to the Meal Menu
+    try:
+        meal_menu_recipe = MealMenuRecipe(user=request.user, recipe=recipe)
+        meal_menu_recipe.save()
+    except IntegrityError:
+        messages.add_message(request, messages.INFO, 'This recipe is already on your Meal Menu! You may remove it from your Try List.')
+
+    # Save the Recipes ingredient list to the users Shopping List
+    ingredient_list = IngredientList.objects.filter(recipe=recipe)
+    for ing in ingredient_list:
+        try:
+            shopping_list_item = ShoppingList.objects.create(user=request.user, recipe=recipe, list_item=ing.ingredient, department=ing.category)
+        except IntegrityError:
+            pass
+
+    # Remove the recipe from the Try List
+    try:
+        try_list_recipe = TryListRecipe.objects.get(recipe=recipe, user=request.user)
+        try_list_recipe.delete()
+    except ObjectDoesNotExist:
+        pass
+
+    # Add message
+    messages.add_message(request, messages.INFO, f'{recipe.title} has been moved to your Meal Menu and all ingredients have been added to your shopping list!')
+    # Return the success URL
+    contributor = recipe.contributor
+    return redirect('recipes:my-try-list')
+
+
+class MyTryListView(LoginRequiredMixin, ListView):
+    '''List of recipes the user would like to try.'''
+
+    model = TryListRecipe
+    template_name = 'my_try_list.html'
+    context_object_name = 'try_list_recipes'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user).order_by('recipe__title')
+        return queryset
+
+
+class MyFavoritesListView(LoginRequiredMixin, ListView):
+    '''List of recipes the user has saved to favorites.'''
+
+    model = FavoriteRecipe
+    template_name = 'my-fav-list.html'
+    context_object_name = 'fav_recipes'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user).order_by('recipe__title')
+        return queryset
+
+
+class MyRecipesListView(LoginRequiredMixin, ListView):
+    '''List of recipes the user has contributed.'''
+
+    model = Recipe
+    template_name = 'my-recipes-list.html'
+    context_object_name = 'my_recipes'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(contributor=self.request.user).order_by('title')
+        return queryset

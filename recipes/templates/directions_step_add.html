@@ -34,9 +34,11 @@
                 </ul>
             </div>
             {% if messages %}
-            <ul class="messages">
+            <ul id="messages">
             {% for message in messages %}
-                <li class="message-success">{{message}}</li>
+                <li class="message-success" id="message{{forloop.counter}}">
+                    <div>{{ message }}</div><div class="close-message" onclick="closeMessage('message{{forloop.counter}}')"><i class="fas fa-times"></i></div>
+                </li>
             {% endfor %}
             </ul>
             {% endif %}

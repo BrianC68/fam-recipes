@@ -7,6 +7,7 @@ fam_recipes/settings.py
 media/
 static/test.html
 static/admin/
+\family_relations.txt
 ##############################
 
 # Django stuff:
