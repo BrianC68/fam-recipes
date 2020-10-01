@@ -396,7 +396,7 @@ def add_to_favorites(request, slug):
     favorite.save()
 
     # Add message
-    messages.add_message(request, messages.INFO, 'Added to your Favorites!')
+    messages.add_message(request, messages.INFO, 'Added to your Favorites')
 
     # Return the success URL
     contributor = recipe.contributor
@@ -412,7 +412,7 @@ def remove_from_favorites(request, slug):
     favorite.delete()
 
     # Add message
-    messages.add_message(request, messages.INFO, f'{recipe.title} was removed from your Favorites!')
+    messages.add_message(request, messages.INFO, f'{recipe.title} was removed from your Favorites')
     
     # Return the success URL
     contributor = recipe.contributor
@@ -428,7 +428,7 @@ def add_to_try_list(request, slug):
     try_list_recipe.save()
 
     # Add message
-    messages.add_message(request, messages.INFO, 'Added to your Try List!')
+    messages.add_message(request, messages.INFO, 'Added to your Try List')
 
     # Return the success URL
     contributor = recipe.contributor
@@ -476,7 +476,7 @@ def move_from_try_list_to_meal_menu(request, slug):
         pass
 
     # Add message
-    messages.add_message(request, messages.INFO, f'{recipe.title} has been moved to your Meal Menu and all ingredients have been added to your shopping list!')
+    messages.add_message(request, messages.INFO, f'{recipe.title} has been moved to your Meal Menu and all ingredients have been added to your shopping list')
     # Return the success URL
     contributor = recipe.contributor
     return redirect('recipes:my-try-list')

@@ -38,7 +38,7 @@ def add_to_meal_menu(request, slug, next):
         # Add message
         messages.add_message(request, messages.INFO, f'{recipe.title} has been added to your Meal Menu!')
     except IntegrityError:
-        messages.add_message(request, messages.INFO, f'{recipe.title} is already on your Meal Menu!')
+        messages.add_message(request, messages.INFO, f'{recipe.title} is already on your Meal Menu')
 
     # Save the Recipes ingredient list to the users Shopping List
     ingredient_list = IngredientList.objects.filter(recipe=recipe)
@@ -46,7 +46,7 @@ def add_to_meal_menu(request, slug, next):
         for ing in ingredient_list:
             shopping_list_item = ShoppingList.objects.create(user=request.user, recipe=recipe, list_item=ing.ingredient, department=ing.category)
         # Add message
-        messages.add_message(request, messages.INFO, f'{recipe.title} ingredients have been added to your shopping list!')
+        messages.add_message(request, messages.INFO, f'{recipe.title} ingredients have been added to your Shopping List')
     except IntegrityError:
         pass
 
@@ -79,13 +79,15 @@ def remove_from_meal_menu(request, slug):
         meal_menu_recipe = MealMenuRecipe.objects.get(recipe=recipe, user=request.user)
         meal_menu_recipe.delete()
         # Add message
-        messages.add_message(request, messages.INFO, f'{recipe.title} has been removed from your Meal Menu!')
+        messages.add_message(request, messages.INFO, f'{recipe.title} has been removed from your Meal Menu')
     except ObjectDoesNotExist:
-        messages.add_message(request, messages.INFO, 'Recipe was not on your Meal Menu!')
+        messages.add_message(request, messages.INFO, f'{recipe.title} was not on your Meal Menu')
 
     try:
-        shopping_list_items = ShoppingList.objects.filter(recipe=recipe).delete()
-        messages.add_message(request, messages.INFO, f'If any {recipe.title} ingredients were on your shopping list, they have been removed!')
+        shopping_list_items = ShoppingList.objects.filter(recipe=recipe)
+        if shopping_list_items:
+            messages.add_message(request, messages.INFO, f'{recipe.title} ingredients were removed from your Shopping List')
+            shopping_list_items.delete()
     except ObjectDoesNotExist:
         pass
 
@@ -125,7 +127,7 @@ class ShoppingListCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         form.instance.recipe = None
         # Add Message
-        messages.add_message(self.request, messages.INFO, f'{form.instance.list_item} has been added to your shopping list!')
+        messages.add_message(self.request, messages.INFO, f'{form.instance.list_item} has been added to your Shopping List')
         return super().form_valid(form)
 
 
@@ -163,7 +165,7 @@ def remove_from_shopping_list(request, item_pk):
     try:
         list_item = ShoppingList.objects.get(pk=item_pk)
         # Add Message
-        messages.add_message(request, messages.INFO, f'{list_item.list_item} has been removed from your shopping list!')
+        messages.add_message(request, messages.INFO, f'{list_item.list_item} has been removed from your Shopping List!')
         list_item.delete()
     except ObjectDoesNotExist:
         pass
